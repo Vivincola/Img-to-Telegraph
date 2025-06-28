@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title mb-0">
+                        <i class="fas fa-cloud-upload-alt me-2"></i>Upload Photos to Telegraph
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <!-- API Key Section -->
+                        <div class="mb-4">
+                            <label for="api_key" class="form-label">
+                                <i class="fas fa-key me-2"></i>imgfoto.host API Key
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="api_key" name="api_key" required
+                                   placeholder="Enter your imgfoto.host API key">
+                            <div class="form-text">
+                                Get your API key from <a href="https://imgfoto.host/page/api" target="_blank">imgfoto.host</a>
+                            </div>
+                        </div>
+
+                        <!-- File Upload Section -->
+                        <div class="mb-4">
+                            <label class="form-label">
+                                <i class="fas fa-images me-2"></i>Select Photos
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div id="dropZone" class="drop-zone">
+                                <div class="drop-zone-content">
+                                    <i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted"></i>
+                                    <p class="mb-2">Drag and drop photos here or click to select</p>
+                                    <p class="text-muted small">Supported formats: PNG, JPG, JPEG, GIF, BMP, WEBP</p>
+                                    <button type="button" class="btn btn-outline-primary" id="selectFilesBtn">
+                                        <i class="fas fa-folder-open me-2"></i>Select Files
+                                    </button>
+                                </div>
+                            </div>
+                            <input type="file" id="photos" name="photos" multiple accept="image/*" style="display: none;">
+                            <div id="fileList" class="mt-3"></div>
+                        </div>
+
+                        <!-- Telegraph Post Details -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="title" class="form-label">
+                                    <i class="fas fa-heading me-2"></i>Post Title
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="title" name="title" required
+                                       placeholder="Enter post title">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="author" class="form-label">
+                                    <i class="fas fa-user me-2"></i>Author Name
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="author" name="author" required
+                                       placeholder="Enter author name">
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="content" class="form-label">
+                                <i class="fas fa-align-left me-2"></i>Additional Content (Optional)
+                            </label>
+                            <textarea class="form-control" id="content" name="content" rows="3"
+                                      placeholder="Add any additional text content for your post..."></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                                <i class="fas fa-paper-plane me-2"></i>Upload & Create Telegraph Post
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Progress Section -->
+                    <div id="progressSection" class="mt-4" style="display: none;">
+                        <div class="card bg-secondary">
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    <i class="fas fa-spinner fa-spin me-2"></i>Processing...
+                                </h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                         role="progressbar" style="width: 0%"></div>
+                                </div>
+                                <small id="progressText" class="text-muted">Preparing upload...</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Section -->
+                    <div id="resultSection" class="mt-4" style="display: none;">
+                        <!-- Success result will be inserted here -->
+                    </div>
+
+                    <!-- Error Section -->
+                    <div id="errorSection" class="mt-4" style="display: none;">
+                        <div class="alert alert-danger">
+                            <h6 class="alert-heading">
+                                <i class="fas fa-exclamation-triangle me-2"></i>Error
+                            </h6>
+                            <p id="errorText" class="mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
